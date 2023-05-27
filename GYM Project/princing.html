@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Subscription Plans</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background-color: #000000;
+            overflow: hidden;
+        }
+
+        .navbar a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        body {
+            background-color: black;
+        }
+
+        /*works janky on mobile :<*/
+        .container {
+
+            position: relative;
+            width: 190px;
+            height: 254px;
+            transition: 200ms;
+            display: inline-block;
+            /* Added */
+            margin: 75px;
+            margin-left: 200px;
+            /* Added */
+        }
+        .plan-container {
+            background-color: #000;
+            padding: 100px;
+            text-align: center;
+        }
+
+        .plan-container h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .plan-item {
+            display: inline-block;
+            width: 300px;
+            background-color: #333;
+            padding: 20px;
+            margin: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .plan-item:hover,
+        .plan-item:focus {
+            background-color: #1d1d1d;
+            box-shadow: 0 0 10px #f81ce5, 0 0 20px #1c23f8, 0 0 40px #f81ce5;
+        }
+
+        .plan-item.selected {
+            z-index: 1;
+        }
+
+        .plan-item h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .plan-item p {
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .payment-option {
+            display: none;
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+            margin-top: 20px;
+        }
+
+        .payment-option h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .payment-option p {
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .payment-option ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .payment-option li {
+            margin-bottom: 10px;
+        }
+
+        .payment-option label {
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .payment-form {
+            display: none;
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+            margin-top: 20px;
+        }
+
+        .payment-form .payment-method {
+            display: none;
+        }
+
+        .payment-form input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        border: none;
+        background-color: #000;
+        color: #fff;
+        box-shadow: 0 0 10px #f81ce5, 0 0 20px #1c23f8, 0 0 40px #f81ce5;
+    }
+
+    .payment-form input[type="submit"] {
+        padding: 10px 30px;
+        background-color: #000;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 0 10px #f81ce5, 0 0 20px #1c23f8, 0 0 40px #f81ce5;
+    }
+
+    .payment-form input[type="submit"]:hover {
+        background-color: #1d1d1d;
+    }
+
+
+        .footer {
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="Homepage.html">Home</a>
+        <a href="features.html">Features</a>
+        <a href="princing.html">Pricing</a>
+        <a href="About.html">About Us</a>
+    </div>
+
+    <div class="plan-container">
+        <h2>Subscription Plans</h2>
+        <div class="plan-item" onclick="togglePaymentOption(1)">
+            <h3>Basic Plan</h3>
+            <p>Access to gym facilities</p>
+            <p>Rs 1099.99/month</p>
+        </div>
+        <div class="plan-item" onclick="togglePaymentOption(2)">
+            <h3>Standard Plan</h3>
+            <p>Access to gym facilities + Group classes</p>
+            <p>Rs 1399.99/month</p>
+        </div>
+        <div class="plan-item" onclick="togglePaymentOption(3)">
+            <h3>Premium Plan</h3>
+            <p>Access to gym facilities + Group classes + Personal training</p>
+            <p>RS 1999.99/month</p>
+        </div>
+    </div>
+
+    <div class="payment-option" id="paymentOption">
+        <h3>Payment Option</h3>
+        <p>Please choose your preferred payment method:</p>
+        <ul>
+            <li>
+                <label>
+                    <input type="radio" name="paymentMethod" value="card" onclick="togglePaymentMethod('cardForm')">
+                    Credit/Debit Card
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="radio" name="paymentMethod" value="paypal" onclick="togglePaymentMethod('paypalForm')">
+                    PayPal
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="radio" name="paymentMethod" value="bank" onclick="togglePaymentMethod('bankForm')">
+                    Bank Transfer
+                </label>
+            </li>
+        </ul>
+    </div>
+
+    <div class="payment-form" id="paymentFormContainer">
+        <h3>Payment Form</h3>
+        <div class="payment-method" id="cardForm">
+            <form id="paymentFormCard" onsubmit="submitPaymentForm(event)">
+                <input type="text" name="cardholderName" placeholder="Cardholder Name" required>
+                <br>
+                <input type="text" name="cardNumber" placeholder="Card Number" required>
+                <br>
+                <input type="text" name="expiryDate" placeholder="Expiry Date (MM/YY)" required>
+                <br>
+                <input type="text" name="cvv" placeholder="CVV" required>
+                <br>
+                <input type="submit" value="Submit Payment">
+            </form>
+        </div>
+
+        <div class="payment-method" id="paypalForm">
+            <form id="paymentFormPaypal" onsubmit="submitPaymentForm(event)">
+                <input type="text" name="paypalEmail" placeholder="PayPal Email" required>
+                <br>
+                <input type="submit" value="Submit Payment">
+            </form>
+        </div>
+
+        <div class="payment-method" id="bankForm">
+            <form id="paymentFormBank" onsubmit="submitPaymentForm(event)">
+                <input type="text" name="bankAccountNumber" placeholder="Bank Account Number" required>
+                <br>
+                <input type="text" name="bankRoutingNumber" placeholder="IFSC Code " required>
+                <br>
+                <input type="submit" value="Submit Payment">
+            </form>
+        </div>
+    </div>
+
+    
+
+    <script>
+        let selectedPlan = 0;
+
+        function togglePaymentOption(planId) {
+            const paymentOption = document.getElementById('paymentOption');
+            const paymentFormContainer = document.getElementById('paymentFormContainer');
+            const planItems = document.getElementsByClassName('plan-item');
+
+            if (selectedPlan === planId) {
+                selectedPlan = 0;
+                paymentOption.style.display = 'none';
+                paymentFormContainer.style.display = 'none';
+            } else {
+                selectedPlan = planId;
+                paymentOption.style.display = 'block';
+                paymentFormContainer.style.display = 'block';
+
+                for (let i = 0; i < planItems.length; i++) {
+                    planItems[i].classList.remove('selected');
+                }
+
+                const selectedPlanItem = document.querySelector(`.plan-item:nth-child(${planId})`);
+                selectedPlanItem.classList.add('selected');
+            }
+        }
+
+        function togglePaymentMethod(paymentMethod) {
+            const paymentMethods = document.getElementsByClassName('payment-method');
+
+            for (let i = 0; i < paymentMethods.length; i++) {
+                paymentMethods[i].style.display = 'none';
+            }
+
+            const selectedPaymentMethod = document.getElementById(paymentMethod);
+            selectedPaymentMethod.style.display = 'block';
+        }
+
+        function submitPaymentForm(event) {
+            event.preventDefault();
+
+            // Get form data
+            const paymentForm = event.target;
+            const formData = new FormData(paymentForm);
+            const data = Object.fromEntries(formData.entries());
+
+            // Perform form submission or API integration to process the payment
+            console.log('Payment data:', data);
+
+            // Clear the form fields
+            paymentForm.reset();
+        }
+    </script>
+</body>
+
+</html>
